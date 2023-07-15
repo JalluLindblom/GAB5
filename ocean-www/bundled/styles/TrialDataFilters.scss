@@ -1,0 +1,30 @@
+
+@use 'palette';
+
+.TrialDataFilters {
+
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+
+    table {
+        thead {
+            td {
+                text-align: center;
+            }
+        }
+        td {
+            padding-bottom: 3px;
+            border-bottom: 1px solid palette.$gray-lt;
+        }
+    }
+}
+
+.TrialDataFilters-form {
+}
+
+.TrialDataFilters-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

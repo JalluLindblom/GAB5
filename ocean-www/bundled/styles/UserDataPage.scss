@@ -1,0 +1,33 @@
+
+@use 'palette';
+
+.UserDataPage {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.UserDataPage-users-table {
+    border: 1px solid palette.$gray-lt;
+    thead {
+        text-align: center;
+    }
+    td {
+        padding: 5px;
+        border: 1px solid palette.$gray-lt;
+    }
+}
+
+.UserDataPage-form form {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    padding-bottom: 40px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid palette.$gray-lt;
+}
+
+.UserDataPage-controls {
+    
+}

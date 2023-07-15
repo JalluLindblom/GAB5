@@ -1,0 +1,18 @@
+xxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxx
+xxxxxxrrrr   xxxxx
+xxxxrrrrrsss   xxx
+xxx      ss     xx
+xxxf     sss    xx
+xx    h  s  f f  x
+xx      frr sss  x
+xx     fprrrsss  x
+xx        rrssss x
+xx          ssssfx
+xxf  rrr       s x
+xx   rrr         x
+xxx  s h    rrrrxx
+xxx ss     rrrrrxx
+xxxxssss  rrrrrxxx
+xxxxxxs  rrrrxxxxx
+xxxxxxxxxxxxxxxxxx

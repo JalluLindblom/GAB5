@@ -1,0 +1,17 @@
+
+@use 'palette';
+
+.TrialDataDisplay {
+    table {
+        border: 1px solid palette.$gray-lt;
+        thead {
+            td {
+                text-align: center;
+            }
+        }
+        td {
+            padding: 10px;
+            border: 1px solid palette.$gray-lt;
+        }
+    }
+}

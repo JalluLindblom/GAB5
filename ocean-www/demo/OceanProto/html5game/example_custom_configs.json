@@ -1,0 +1,15 @@
+{
+    // This is an example of a custom configuration file.
+    // If this custom configuration file is used, the variables
+    // defined here will overwrite the corresponding values of
+    // the main configurations. All variables that are not
+    // defined here will get their values from the main configurations instead.
+
+    "configuration_version": "example",
+
+    "levels": [
+        "default_levels\\level_1.txt",
+        "default_levels\\level_2.txt",
+        "default_levels\\level_3.txt"
+    ]
+}

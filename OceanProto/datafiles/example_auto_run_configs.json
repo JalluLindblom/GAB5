@@ -1,0 +1,9 @@
+{
+    "num_runs_per_permutation": 1,
+    
+    "options_openness":          [ 0.001, 0.5, 1.0 ],
+    "options_conscientiousness": [ 0.001, 0.5, 1.0 ],
+    "options_extraversion":      [ 0.001, 0.5, 1.0 ],
+    "options_agreeableness":     [ 0.001, 0.5, 1.0 ],
+    "options_neuroticism":       [ 0.001, 0.5, 1.0 ]
+}

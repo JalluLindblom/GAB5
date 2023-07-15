@@ -1,0 +1,42 @@
+{
+    // Level dimensions
+    "min_width": 18,
+    "max_width": 18,
+    "min_height": 18,
+    "max_height": 18,
+
+    // Monster, food and human amount categories.
+    // The number of categories per each type will affect how many
+    // levels are to be generated, because it will affect
+    // how many amount category permutations there are.
+    "monster_amounts": [
+        { "min": 0, "max": 0 },
+        { "min": 2, "max": 4 },
+        { "min": 5, "max": 8 }
+    ],
+    "food_amounts": [
+        { "min": 0, "max": 0 },
+        { "min": 1, "max": 7 },
+        { "min": 8, "max": 14 }
+    ],
+    "human_amounts": [
+        { "min": 0, "max": 0 },
+        { "min": 1, "max": 4 },
+        { "min": 5, "max": 8 }
+    ],
+
+    // Sand amount categories.
+    // This will NOT affect how many levels will be generated.
+    // Each sand amount category will be used as many times as the others.
+    // For example if 99 levels were to be generated and there are 3 sand amount categories,
+    // there will be 33 levels with sand amounts taken from the first category, 33 levels
+    // from the second and 33 from the third.
+    "sand_amounts": [
+        { "min": 0,  "max": 0 },
+        { "min": 5,  "max": 10 },
+        { "min": 30, "max": 40 }
+    ],
+
+    // Number of variations of each level
+    "num_variations": 5
+}

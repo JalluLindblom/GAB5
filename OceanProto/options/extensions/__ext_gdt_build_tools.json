@@ -1,0 +1,9 @@
+{
+  "extensionId": {
+    "name": "__ext_gdt_build_tools",
+    "path": "extensions/__ext_gdt_build_tools/__ext_gdt_build_tools.yy"
+  },
+  "resourceVersion": "1.0",
+  "resourceType": "GMExtensionConfigSet",
+  "configurables": null
+}
