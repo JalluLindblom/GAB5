@@ -15,6 +15,7 @@ import cors from 'cors';
 import * as db from './db';
 import * as ev from './envVars';
 import mainRouter from './routers/mainRouter'
+import { indexAuth } from './middleware/auth';
 
 import * as bi from './misc/buildInfo';
 
@@ -72,7 +73,7 @@ async function main() {
         return next();
     });
     
-    app.use(express.static(path.join(__dirname, 'public')));
+    app.use(indexAuth, express.static(path.join(__dirname, 'public')));
 
     app.set('view engine', 'ejs');
 
