@@ -16,30 +16,11 @@ function make_dev_menu(is_remote_defined/*: bool*/)
         
         ME_spacer(1),
         
-        ME_function("Start a session", function() {
-            var user_id = get_string("User ID", Debugs.dev_session_user_id);
-			Debugs.dev_session_user_id = user_id;
-			save_active_debug_settings();
-            if (string_trim(user_id) != "") {
-				API.user_get_total_score(user_id)
-				.and_then(method({ user_id: user_id }, function(total_score/*: number?*/) {
-					if (total_score == undefined) total_score = 0;
-					var rng = new Rng(irandom(power(2, 32)));
-	                var levels = array_copied(Configs.levels);
-	                if (Configs.shuffle_levels) {
-	                    rng.rng_array_shuffle(levels);
-	                }
-	                return session_start(user_id, levels, total_score, rng);
-				}))
-                .and_catch(function(err) {
-                    show_message(err);
-                });
-            }
-            else {
-                game_end();
-            }
-            return MENU_RETURN.close_menu;
-        }, check_is_remote_defined),
+        ME_sub_menu("Start session (server)", _make_server_session_start_menu(), check_is_remote_defined),
+        
+        ME_spacer(1.0),
+        
+        ME_sub_menu("Start session (local)", _make_local_session_start_menu()),
         
         ME_spacer(1.0),
         
@@ -148,6 +129,85 @@ function make_dev_menu(is_remote_defined/*: bool*/)
     return new MenuDefinition(headers, bodies, footers);
 }
 
+function _make_server_session_start_menu() /*-> MenuDefinition*/
+{
+	var bodies = [
+		
+		ME_spacer(4.0),
+		
+		ME_heading("START SESSION (SERVER)"),
+		
+		ME_spacer(1.0),
+		
+		ME_text("[pin_center]You're about to start a session of one or more trials. The results of the trials will be submitted to the server.", false, false),
+		ME_text("[pin_center]Continue?", false, false),
+		
+		ME_spacer(2.0),
+		
+		ME_function("Continue", function() {
+			var user_id = get_string("User ID", Debugs.dev_session_user_id);
+			Debugs.dev_session_user_id = user_id;
+			save_active_debug_settings();
+            if (string_trim(user_id) != "") {
+				API.user_get_total_score(user_id)
+				.and_then(method({ user_id: user_id }, function(total_score/*: number?*/) {
+					if (total_score == undefined) total_score = 0;
+					var rng = new Rng(irandom(power(2, 32)));
+	                var levels = array_copied(Configs.levels);
+	                if (Configs.shuffle_levels) {
+	                    rng.rng_array_shuffle(levels);
+	                }
+	                return server_session_start(user_id, levels, total_score, rng);
+				}))
+                .and_catch(function(err) {
+                    show_message(err);
+                });
+            }
+            else {
+                game_end();
+            }
+            return MENU_RETURN.close_menu;
+		}),
+		ME_spacer(1.0),
+		ME_function("Back", function() {
+			return MENU_RETURN.back;
+		}),
+	];
+	return new MenuDefinition([], bodies, []);
+}
+
+function _make_local_session_start_menu() /*-> MenuDefinition*/
+{
+	var bodies = [
+		
+		ME_spacer(4.0),
+		
+		ME_heading("START SESSION (LOCAL)"),
+		
+		ME_spacer(1.0),
+		
+		ME_text("[pin_center]You're about to start a session of one or more trials. At the end of the session, you will get to save the trial results as a CSV-file on your computer.", false, false),
+		ME_text("[pin_center]Continue?", false, false),
+		
+		ME_spacer(2.0),
+		
+		ME_function("Continue", function() {
+			var rng = new Rng(irandom(power(2, 32)));
+        	var levels = array_copied(Configs.levels);
+            if (Configs.shuffle_levels) {
+                rng.rng_array_shuffle(levels);
+            }
+        	local_session_start("LOCAL_USER", levels, rng);
+            return MENU_RETURN.close_menu;
+		}),
+		ME_spacer(1.0),
+		ME_function("Back", function() {
+			return MENU_RETURN.back;
+		}),
+	];
+	return new MenuDefinition([], bodies, []);
+}
+
 function _make_dev_select_level_menu() /*-> MenuDefinition*/
 {
     var headers = /*#cast*/ [
@@ -167,7 +227,7 @@ function _make_dev_select_level_menu() /*-> MenuDefinition*/
         };
         array_push(bodies, ME_function(filename, method(capture, function() {
             var rng = new Rng(irandom(power(2, 32)));
-            session_start("test_user", [ filename ], 0, rng)
+            server_session_start("test_user", [ filename ], 0, rng)
             .and_catch(function(err) {
                 show_message(err);
             });

@@ -110,7 +110,7 @@ window_set_size(1600, 900);
 
 if (os_get_config() == CONFIG_DEMO) {
 	var rng = new Rng(irandom(power(2, 32)));
-	demo_session_start("DEMO_USER", Configs.levels, rng);
+	local_session_start("DEMO_USER", Configs.levels, rng);
 }
 else {
 	LoadingStatus.set("Connecting...");
@@ -149,7 +149,7 @@ else {
 	            if (Configs.shuffle_levels) {
 	                rng.rng_array_shuffle(levels);
 	            }
-	            return session_start(user_id, levels, total_score, rng);
+	            return server_session_start(user_id, levels, total_score, rng);
 	        }))
 	        .and_catch(function(err) {
 	            show_message(err);

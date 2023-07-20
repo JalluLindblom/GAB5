@@ -1,5 +1,6 @@
 
-function session_start(user_id/*: string*/, level_filenames/*: string[]*/, total_score/*: number*/, rng/*: Rng*/, preset_traits/*: PersonalityTraits?*/ = undefined) /*-> Promise*/
+/// Starts a session that submits the trial data to the server as trials are finished.
+function server_session_start(user_id/*: string*/, level_filenames/*: string[]*/, total_score/*: number*/, rng/*: Rng*/, preset_traits/*: PersonalityTraits?*/ = undefined) /*-> Promise*/
 {
     var capture = {
         level_filenames: array_mapped(level_filenames, _string_replace_backslashes_with_forward_slashes),
@@ -75,18 +76,20 @@ function session_start(user_id/*: string*/, level_filenames/*: string[]*/, total
                             game_end();
                             return;
                         }
-                        return session_start(user_id, level_filenames, total_score + trial.result.trial_score, rng);
+                        return server_session_start(user_id, level_filenames, total_score + trial.result.trial_score, rng);
                     });
                 }
                 else {
-                    return session_start(user_id, level_filenames, total_score + trial.result.trial_score,rng, trial.traits);
+                    return server_session_start(user_id, level_filenames, total_score + trial.result.trial_score,rng, trial.traits);
                 }
             });
         }));
     }));
 }
 
-function demo_session_start(user_id/*: string*/, level_filenames/*: string[]*/, rng/*: Rng*/) /*-> Promise*/
+/// Starts a session that doesn't connect to a server.
+/// Instead, the trial data is saved as a local file at the end of the session.
+function local_session_start(user_id/*: string*/, level_filenames/*: string[]*/, rng/*: Rng*/) /*-> Promise*/
 {
 	var promise = wait_one_step();
 	
@@ -264,7 +267,7 @@ function _make_session_end_menu(user_id/*: string*/, total_score/*: number*/, tr
     ] /*#as MenuEntryDefinition[]*/;
     
     if (trials_to_be_downloaded != undefined) {
-        var button_text = "Download results"; // TODO: Localization
+        var button_text = "Save results"; // TODO: Localization
         array_append(bodies, [
             ME_spacer(1.0),
             ME_button(button_text, function() {

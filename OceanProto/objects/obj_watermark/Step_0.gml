@@ -8,7 +8,6 @@ if (instance_exists(Trial) && Trial.level.name != undefined) {
 }
 
 if (text != prev_text) {
-    dud_show_text("update");
     scrib = scribble(text)
         .starting_format(FontJosefinSans, COLOR.white)
         .transform(0.65, 0.65, 0)
